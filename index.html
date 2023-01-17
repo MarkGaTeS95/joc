@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Game with Levels</title>
+</head>
+<body>
+  <div id="game-container">
+    <div id="question"></div>
+    <form id="game-form">
+      <input type="text" id="answer">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const levels = [
+      {
+        "question": "What is the capital of France?",
+        "answer": "Paris",
+        "correct": "Correct! Paris is the capital of France",
+        "incorrect": "Incorrect, Paris is the capital of France"
+      },
+      {
+        "question": "What is the largest planet in our solar system?",
+        "answer": "Jupiter",
+        "correct": "Correct! Jupiter is the largest planet in our solar system",
+        "incorrect": "Incorrect, Jupiter is the largest planet in our solar system"
+      }
+    ];
+
+    let currentLevel = 0;
+    const questionEl = document.getElementById('question');
+    let currentAnswer = levels[currentLevel].answer.toLowerCase();
+
+    questionEl.innerText = levels[currentLevel].question;
+
+    const form = document.getElementById('game-form');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = document.getElementById('answer').value.toLowerCase();
+      if (input === currentAnswer) {
+        alert(levels[currentLevel].correct);
+        nextLevel();
+      } else {
+        alert(levels[currentLevel].incorrect);
+      }
+    });
+
+    function nextLevel() {
+      currentLevel++;
+      if(currentLevel < levels.length){
+        questionEl.innerText = levels[currentLevel].question;
+        currentAnswer = levels[currentLevel].answer.toLowerCase();
+      } else{
+        alert("Congratulations, you have completed all the levels!")
+      }
+    }
+  </script>
+</body>
+</html>
